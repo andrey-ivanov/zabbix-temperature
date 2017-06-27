@@ -21,4 +21,4 @@ sudo bash install.sh
 - [ ] implement CPU index renumbering for multiprocessor servers
 
 ## Special Notes:
-Project andrey-ivanov/zabbix-hdd-smart can be used to track SATA and NVMe disk temperatures
+Project [zabbix-hdd-smart](https://github.com/andrey-ivanov/zabbix-hdd-smart) can be used to track SATA and NVMe disk temperatures
