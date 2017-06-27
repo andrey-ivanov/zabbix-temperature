@@ -1,5 +1,9 @@
 #!/bin/bash
-version=0.1
+version=0.2
+
+if [[ -e /etc/zabbix/temperature.conf ]]; then
+   . /etc/zabbix/temperature.conf
+fi
 
 case "$1" in
 "--temperature-discovery")
@@ -8,6 +12,16 @@ case "$1" in
     for SensorInput in $(/usr/bin/find /sys/devices/platform/ -type f -name temp*_input | sort)
     do
         SensorLabel=${SensorInput/_input/_label}
+        if [[ $IgnoreSensors ]]; then
+            # Check ignore list by sensor name first
+            if grep -qE '('${IgnoreSensors}')' $SensorLabel; then
+                continue
+            fi
+            # Check ignore list by path to sensor as well
+            if (echo $SensorInput | grep -qE '('${IgnoreSensors}')'); then
+                continue
+            fi
+        fi
         SensorMax=${SensorInput/_input/_max}
         echo -en "$Delimiter\n    "
         echo -en "{\"{#SENSORLABEL}\":\"$(cat ${SensorLabel})\",\"{#SENSORINPUT}\":\"${SensorInput}\",\"{#SENSORMAX}\":\"${SensorMax}\"}"

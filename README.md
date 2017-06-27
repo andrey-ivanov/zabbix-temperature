@@ -14,8 +14,11 @@ sudo bash install.sh
 ```
 2. Import zabbix-temperature.xml on Zabbix server
 
+3. Create `/etc/zabbix/temperature.conf` and add ignore sensors (see example
+   `etc/zabbix/temperature.conf` in repository)
+
 ## Future Tasks:
 - [ ] implement CPU index renumbering for multiprocessor servers
 
 ## Special Notes:
-Project zabbix-hdd-smart can be used to track SATA and NVMe disk temperatures
+Project andrey-ivanov/zabbix-hdd-smart can be used to track SATA and NVMe disk temperatures
